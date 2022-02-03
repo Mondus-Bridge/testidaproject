@@ -5,7 +5,7 @@
       <div class="container__text">
         <div>{{ item.title }}</div>
         <div>{{ item.desc }}</div>
-        <div>{{ item.price }}</div>
+        <div>{{ money(item.price) }}</div>
       </div>
     </div>
     <div>
@@ -23,6 +23,14 @@ export default {
       required: true,
     },
   },
+    methods: {
+    money(value) {
+      const formatValue = new Intl.NumberFormat("ru-RU").format(value);
+      if (!value) return "";
+      return `${formatValue} руб.`;
+    },
+  },
+
 };
 </script>
 
