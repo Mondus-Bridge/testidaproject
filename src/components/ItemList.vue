@@ -23,8 +23,21 @@ export default {
 </script>
 <style scoped>
 .container {
+  max-width: 1028px;
+  min-width: 320px;
+  margin: 0 0 0 0;
+  padding: 0;
+  list-style: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  position: relative;
+  grid-template-columns: repeat(auto-fit, minmax(332px, 1fr));
+  grid-gap: 16px;
+}
+
+@media screen and (max-width: 768px) {
+  .container {
+    flex-wrap: wrap;
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>

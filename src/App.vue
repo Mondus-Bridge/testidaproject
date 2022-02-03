@@ -1,14 +1,20 @@
 <template>
-  <div>
-    <item-form @create="addItem" />
-    <item-list 
-    :items="sortedItems"
-    @remove="removeItem" />
+  <div class="container">
+    <div class="app__block">
+      <div><h2>Добавление товара</h2></div>
+      <div>
         <item-sort
-      class="item__sort"
-      v-model="selectedSort"
-      :options="sortOptions"
-    />
+          class="item__sort"
+          v-model="selectedSort"
+          :options="sortOptions"
+        />
+      </div>
+    </div>
+
+    <div class="app__list">
+      <div><item-form class="app__form" @create="addItem" /></div>
+      <div><item-list :items="sortedItems" @remove="removeItem" /></div>
+    </div>
   </div>
 </template>
 
@@ -89,7 +95,7 @@ export default {
           link: "https://static1.makeuseofimages.com/wordpress/wp-content/uploads/2022/01/white-polaroid-onestep-2-instant-camera-featured-image-cropped.jpg",
         },
       ],
-      selectedSort: '',
+      selectedSort: "",
       sortOptions: [
         { value: "title", name: "По наименованию" },
         { value: "priceToMin", name: "По убыванию цены" },
@@ -105,40 +111,79 @@ export default {
       this.items = this.items.filter((i) => i.id !== item.id);
     },
   },
-    computed: {
-      sortedItems() {
-        switch (this.selectedSort) {
+  computed: {
+    sortedItems() {
+      switch (this.selectedSort) {
         case "title": {
-        return [...this.items].sort((a, b) => a[this.selectedSort]?.localeCompare(b[this.selectedSort]))}
+          return [...this.items].sort((a, b) =>
+            a[this.selectedSort]?.localeCompare(b[this.selectedSort])
+          );
+        }
         case "priceToMin": {
-          return [...this.items].sort((a, b) =>  b.price - a.price)}
-          case "priceToMax": {
-          return [...this.items].sort((a, b) =>  a.price - b.price)}
-        
+          return [...this.items].sort((a, b) => b.price - a.price);
+        }
+        case "priceToMax": {
+          return [...this.items].sort((a, b) => a.price - b.price);
+        }
+
         default: {
           return this.items;
         }
-        }
-      },
+      }
     },
+  },
 };
 </script>
 
-<style>
+<style lang="scss">
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  background-color: rgba(255, 254, 251, 0.8);
 }
 
-div {
+.container {
   display: flex;
+  flex-direction: column;
+}
+
+.app__block {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 230px 16px 275px;
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 42px;
+  color: #3f3f3f;
+}
+
+.app__list {
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
   gap: 16px;
-  background: #e5e5e5;
 }
 
 .item__sort {
-  width: 150px;
-  height: 50px;
+  width: auto;
+  padding: 10px 16px;
+  background-color: #fffefb;
+  border: none;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  font-size: 12px;
+  font-weight: 400;
+  color: #b4b4b4;
+  background-position: center right 16px;
+  border-radius: 4px;
+  box-sizing: border-box;
+  appearance: none;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 768px) {
+  .app__list {
+    flex-wrap: wrap;
+  }
 }
 </style>
