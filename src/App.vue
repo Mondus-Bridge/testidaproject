@@ -92,8 +92,8 @@ export default {
       selectedSort: '',
       sortOptions: [
         { value: "title", name: "По наименованию" },
-        { value: "price", name: "По убыванию цены" },
-        { value: "price", name: "По возрастанию цены" },
+        { value: "priceToMin", name: "По убыванию цены" },
+        { value: "priceToMax", name: "По возрастанию цены" },
       ],
     };
   },
@@ -107,8 +107,19 @@ export default {
   },
     computed: {
       sortedItems() {
-        return [...this.items].sort((a, b) => a[this.selectedSort]?.localeCompare(b[this.selectedSort])
-        )},
+        switch (this.selectedSort) {
+        case "title": {
+        return [...this.items].sort((a, b) => a[this.selectedSort]?.localeCompare(b[this.selectedSort]))}
+        case "priceToMin": {
+          return [...this.items].sort((a, b) =>  b.price - a.price)}
+          case "priceToMax": {
+          return [...this.items].sort((a, b) =>  a.price - b.price)}
+        
+        default: {
+          return this.items;
+        }
+        }
+      },
     },
 };
 </script>
