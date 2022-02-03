@@ -1,14 +1,14 @@
 <template>
   <div>
     <item-form @create="addItem" />
-    <item-sort
+    <item-list 
+    :items="sortedItems"
+    @remove="removeItem" />
+        <item-sort
       class="item__sort"
       v-model="selectedSort"
       :options="sortOptions"
     />
-    <item-list 
-    :items="sortedItems"
-    @remove="removeItem" />
   </div>
 </template>
 
